@@ -15,7 +15,7 @@ class UrlShortenerBloc extends Bloc<UrlShortenerEvent, UrlShortenerState> {
   }
 
   FutureOr<void> onUrlShortenerEventShortenUrlEvent(UrlShortenerEventShortenUrlEvent event, Emitter<UrlShortenerState> emit) async {
-    emit(UrlShortenerInitialState());
+    emit(UrlShortenerLoadingState());
     final dataState = await _shortnerUseCase.request(urlShortnerRequestEntity: event.requestEntity);
     if (dataState is DataSucessState) {
       emit(UrlShortenerSuccessState(urlShortnerResponseEntity: dataState.data!));

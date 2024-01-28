@@ -17,14 +17,17 @@ class UrlShortDataSourceImpl implements UrlShortnerRepository {
     try {
       final response = await _dataSourceImpl.request(urlShortnerRequestEntity: urlShortnerRequestEntity);
       log("Response is ${response.statusCode}");
-      final jsonData = jsonDecode(response.body)['data'];
-      final UrlShortnerResponseEntity urlShortnerRequestModel = UrlShortnerResponseEntity.fromJson(jsonData);
-      return DataSucessState(urlShortnerRequestModel);
+      final jsonData = jsonDecode(response.body);
+
+      if (response.statusCode != 200) {
+        return DataErrorState(jsonData['error'][0]);
+      } else {
+        final UrlShortnerResponseEntity urlShortnerRequestModel = UrlShortnerResponseEntity.fromJson(jsonData['data']);
+        return DataSucessState(urlShortnerRequestModel);
+      }
     } on SocketException {
       return const DataErrorState("No Internet Connection");
     } catch (e) {
-      log("THis si executed $e");
-
       return DataErrorState(e.toString());
     }
   }

@@ -4,7 +4,7 @@ import 'package:urlshortener/src/shortener/domain/entity/urlshortner_request_ent
 import 'package:urlshortener/src/shortener/presentation/bloc/urlshortener/urlshortener_bloc.dart';
 import 'package:urlshortener/src/shortener/presentation/bloc/urlshortener/urlshortener_event.dart';
 
-Form formField(BuildContext context, GlobalKey<FormState> _formKey, TextEditingController _urlController) {
+Form formField(BuildContext context, GlobalKey<FormState> _formKey, TextEditingController _urlController, TextEditingController _alisController) {
   return Form(
     key: _formKey,
     child: Center(
@@ -23,6 +23,15 @@ Form formField(BuildContext context, GlobalKey<FormState> _formKey, TextEditingC
               }
               return null;
             },
+            decoration: const InputDecoration(
+              labelText: 'Enter URL',
+              hintText: 'Enter URL',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 20),
+          TextFormField(
+            controller: _urlController,
             decoration: const InputDecoration(
               labelText: 'Enter URL',
               hintText: 'Enter URL',

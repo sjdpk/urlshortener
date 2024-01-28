@@ -11,18 +11,30 @@ class UrlShortnerScreen extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // url field editing controller
   final TextEditingController _urlController = TextEditingController(text: "https://");
+  final TextEditingController _alisController = TextEditingController(text: "https://");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('URL Shortener'),
       ),
-      body: BlocBuilder<UrlShortenerBloc, UrlShortenerState>(
+      body: BlocConsumer<UrlShortenerBloc, UrlShortenerState>(
+        listener: (context, state) {
+          if (state is UrlShortenerErrorState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        },
         builder: (context, state) {
           if (state is UrlShortenerSuccessState) {
             return dataWidget(state, context);
           }
-          return formField(context, _formKey, _urlController);
+          return formField(context, _formKey, _urlController, _alisController);
         },
       ),
     );

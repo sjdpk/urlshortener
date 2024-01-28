@@ -21,6 +21,8 @@ class UrlShortenerSuccessState extends UrlShortenerState {
       ];
 }
 
+class UrlShortenerLoadingState extends UrlShortenerState {}
+
 // @desc : Error State
 class UrlShortenerErrorState extends UrlShortenerState {
   final String message;
