@@ -19,11 +19,13 @@ class UrlShortDataSourceImpl implements UrlShortnerRepository {
       log("Response is ${response.statusCode}");
       final jsonData = jsonDecode(response.body);
 
-      if (response.statusCode != 200) {
-        return DataErrorState(jsonData['error'][0]);
-      } else {
+      if (response.statusCode == 200) {
         final UrlShortnerResponseEntity urlShortnerRequestModel = UrlShortnerResponseEntity.fromJson(jsonData['data']);
         return DataSucessState(urlShortnerRequestModel);
+      } else if (response.statusCode == 422) {
+        return DataErrorState(jsonData['errors'][0]);
+      } else {
+        return const DataErrorState("something went wrong");
       }
     } on SocketException {
       return const DataErrorState("No Internet Connection");

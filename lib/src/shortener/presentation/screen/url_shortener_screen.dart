@@ -10,8 +10,8 @@ class UrlShortnerScreen extends StatelessWidget {
 // form global key
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // url field editing controller
-  final TextEditingController _urlController = TextEditingController(text: "https://");
-  final TextEditingController _alisController = TextEditingController(text: "https://");
+  final TextEditingController _urlController = TextEditingController(text: "https://facebook.com");
+  final TextEditingController _alisController = TextEditingController(text: "apple");
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +26,7 @@ class UrlShortnerScreen extends StatelessWidget {
               SnackBar(
                 content: Text(state.message),
                 backgroundColor: Colors.red,
+                behavior: SnackBarBehavior.floating,
               ),
             );
           }

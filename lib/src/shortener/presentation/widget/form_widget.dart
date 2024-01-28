@@ -31,10 +31,10 @@ Form formField(BuildContext context, GlobalKey<FormState> _formKey, TextEditingC
           ),
           const SizedBox(height: 20),
           TextFormField(
-            controller: _urlController,
+            controller: _alisController,
             decoration: const InputDecoration(
-              labelText: 'Enter URL',
-              hintText: 'Enter URL',
+              labelText: 'Alias',
+              hintText: 'Alias',
               border: OutlineInputBorder(),
             ),
           ),
@@ -46,6 +46,7 @@ Form formField(BuildContext context, GlobalKey<FormState> _formKey, TextEditingC
                   url: _urlController.text.toLowerCase(),
                   description: "Url Shortener Test",
                   domain: "tinyurl.com",
+                  alias: _alisController.text.toLowerCase(),
                 );
                 context.read<UrlShortenerBloc>().add(UrlShortenerEventShortenUrlEvent(requestEntity: requestEntity));
               } else {
